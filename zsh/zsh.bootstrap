@@ -1,0 +1,72 @@
+# By https://github.com/weaming
+
+# -------------------------------------------------------------------
+# Add to ~/.zshrc if now work:
+# -------------------------------------------------------------------
+
+# if [ -f ~/.zsh_aliases ]; then
+#     . ~/.zsh_aliases
+# fi
+
+# -------------------------------------------------------------------
+# Global varibales
+# -------------------------------------------------------------------
+
+alias f5="source ~/.zshrc"
+
+# -------------------------------------------------------------------
+# PS1
+# -------------------------------------------------------------------
+# http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+# %{$fg[red]%}%n%{$reset_color%}
+function git_ps1 {
+  branch="`git branch 2>/dev/null | grep "^\*" | sed -e "s/^\*\ //"`"
+  if [ "${branch}" != "" ];then
+      if [ "${branch}" = "(no branch)" ];then
+          branch="(`git rev-parse --short HEAD`...)"
+      fi
+      echo "($branch)"
+  fi
+}
+
+if type __git_ps1 &>/dev/null; then
+    GETBRANCH='`__git_ps1`'
+else
+    GETBRANCH=' `git_ps1`'
+fi
+
+# emojiparty: a blend of random-emoji and terminalparty
+OK_EMOJI=(😀 😬 😁 😃 😄 😎)
+ERROR_EMOJI=(🌧 ⛈ 🌩 🔥 💥 👾 😫 😩 😤 😮 😱 😨 😰 😹 👎 😂 😢 😥 😪 😓 😭 👻 😈 👿 🙀 😿)
+
+function random_prompt_emoji {
+  echo -n "$OK_EMOJI[$RANDOM%$#OK_EMOJI+1]"
+}
+function random_error_emoji {
+  echo -n "$ERROR_EMOJI[$RANDOM%$#ERROR_EMOJI+1]"
+}
+
+exit_emoji='%(?,$(random_prompt_emoji) ,$(random_error_emoji) ) %'
+
+iTime=%{$fg[green]%}%*%{$reset_color%}
+iHost=%{$fg[cyan]%}%M%{$reset_color%}
+iStatus=%{$fg[gray]%}%{$exit_emoji}%?%{$reset_color%}
+iName=%{$fg[red]%}%n%{$reset_color%}
+iPrompt=%(!.#.$)
+iN=$'\n'
+
+export PS1="$iTime $iStatus $iName@$iHost:%~$GETBRANCH$iN$iPrompt "
+
+function reset_ps1() {
+    export PS1='> '
+}
+
+# Common aliases between bash and zsh
+if [ -f ~/.aliases ]; then
+    . ~/.aliases
+fi
+
+# other zsh scripts
+for x in ~/.dotfiles/zsh/*.sh; do
+    source $x
+done
