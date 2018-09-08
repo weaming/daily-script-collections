@@ -14,7 +14,7 @@ for p in $paths; do
         mkdir -p $dir
     fi
     source_dir=$SOURCE_REPO_PATH/$p
-    echo copy $source_dir $p && \
-        cp -r $source_dir ./$p
+    echo copy $source_dir $p
+    cp -r $source_dir ./$p
 done
 
