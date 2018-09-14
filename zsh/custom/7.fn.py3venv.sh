@@ -16,7 +16,8 @@ function py2env-create() {
         $PY_VENV_BASE/$name/bin/python -m pip install -U pip setuptools && \
 
         [ -f "$req" ] && \
-        $PY_VENV_BASE/$name/bin/python -m pip install -r "$req"
+        $PY_VENV_BASE/$name/bin/python -m pip install -r "$req" && \
+        ln -s $PY_VENV_BASE/$name ./venv
 }
 
 function py3env-create() {
@@ -28,7 +29,8 @@ function py3env-create() {
         $PY_VENV_BASE/$name/bin/python -m pip install -U pip setuptools && \
 
         [ -f "$req" ] && \
-        $PY_VENV_BASE/$name/bin/python -m pip install -r "$req"
+        $PY_VENV_BASE/$name/bin/python -m pip install -r "$req" && \
+        ln -s $PY_VENV_BASE/$name ./venv
 }
 
 function pyenv-rm() {

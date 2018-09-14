@@ -46,6 +46,9 @@ alias grlc='grl | pbcopy'
 alias gta='git tag -a -m'
 alias gf='git reflog'
 alias gcp='git cherry-pick'
+alias gsu='git submodule update'
+alias grcontinue='git rebase --continue'
+alias grabort='git rebase --abort'
 
 gitignore-get()
 {

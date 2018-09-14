@@ -46,3 +46,7 @@ docker-run-redis() {
 alias docker-redis-cli='docker run -it --link redis:redis --rm redis redis-cli -h redis -p 6379'
 # ssdb
 alias docker-run-ssdb='docker run --name ssdb -p 8888:8888 -d wendal/ssdb'
+# minio
+docker-run-minio() {
+    docker run -p 9000:9000 --name minio -v "$1"/data:/data -v "$1"/config:/root/.minio minio/minio server /data
+}

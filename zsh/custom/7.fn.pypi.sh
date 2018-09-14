@@ -6,7 +6,7 @@ pypi-clean() {
 
 pypi-build() {
     pypi-clean
-    python setup.py bdist_wheel --universal
+    python2 setup.py bdist_wheel --universal
 }
 
 pypi-install() {
@@ -21,6 +21,6 @@ pypi-uninstall() {
 }
 
 pypi-publish() {
-    pypi-install
+    pypi-build
     twine upload dist/* && git push
 }

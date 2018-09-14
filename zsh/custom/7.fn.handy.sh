@@ -28,6 +28,10 @@ alias pipf='python -m pip freeze'
 alias pipfg='python -m pip freeze | grep'
 alias pipi='pip install'
 alias pipir='pip install -r requirements.txt'
+pip-install-force() {
+    cmd=${2:-pip}
+    $cmd install -U --no-cache-dir -i https://pypi.org/simple $1
+}
 alias py='python'
 rm-extension() {
     find . -name "*.$1" | xargs rm
